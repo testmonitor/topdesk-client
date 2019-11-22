@@ -1,8 +1,8 @@
 <?php
 
-namespace TestMonitor\TOPDesk\Resources;
+namespace TestMonitor\TOPdesk\Resources;
 
-class Incident extends Resource
+class Incident
 {
     /**
      * The id of the incident.
@@ -39,8 +39,14 @@ class Incident extends Resource
      */
     public $briefDescription;
 
+    /**
+     * @var string
+     */
     public $callerName;
 
+    /**
+     * @var string
+     */
     public $callerEmail;
 
     /**
@@ -68,31 +74,5 @@ class Incident extends Resource
         $this->briefDescription = $briefDescription;
         $this->callerEmail = $callerEmail;
         $this->callerName = $callerName;
-    }
-
-    static public function fromArray($data)
-    {
-        return new self(
-            $data['caller']['dynamicName'],
-            $data['caller']['email'] ?? '',
-            $data['status'] ?? '',
-            $data['externalNumber'] ?? '',
-            $data['request'] ?? '',
-            $data['briefDescription'] ?? '',
-            $data['id'],
-        );
-    }
-
-    public function toArray()
-    {
-        return [
-            "caller" => [
-                "dynamicName" => $this->callerName,
-                "email" => $this->callerEmail,
-            ],
-            "briefDescription" => $this->briefDescription,
-            "externalNumber" => $this->number,
-            "request" => $this->request,
-        ];
     }
 }

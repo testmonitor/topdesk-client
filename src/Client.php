@@ -1,16 +1,18 @@
 <?php
 
-namespace TestMonitor\TOPDesk;
+namespace TestMonitor\TOPdesk;
 
-use TestMonitor\TOPDesk\Actions\ManagesAttachments;
-use TestMonitor\TOPDesk\Actions\ManagesIncidents;
-use TestMonitor\TopDeskIntegration\MakesHttpRequests;
+use TestMonitor\TOPdesk\Actions\ManagesIncidents;
+use TestMonitor\TOPdesk\Actions\ManagesAttachments;
+use TestMonitor\TOPdesk\Integration\MakesHttpRequests;
+use TestMonitor\TOPdesk\Transforms\TransformsIncidents;
 
 class Client
 {
     use ManagesAttachments,
         ManagesIncidents,
-        MakesHttpRequests;
+        MakesHttpRequests,
+        TransformsIncidents;
 
     /**
      * @var string
@@ -42,23 +44,13 @@ class Client
     }
 
     /**
-     * Verify the TOPdesk URL and credentials.
-     *
-     * @param string $url
-     * @param string $username
-     * @param string $password
-     *
-     * @throws \App\Integrations\TopDesk\Exceptions\NotFoundException
-     * @throws \App\Integrations\TopDesk\Exceptions\UnauthorizedException
+     * Send a test request to TOPDesk.
      *
      * @return bool
      */
-    public static function check($url, $username, $password)
+    public function test()
     {
-        $topDesk = new self($url, $username, $password);
-
-        // Attempt a simple request.
-        return (bool) $topDesk->incidents();
+        return (bool) $this->incidents();
     }
 
     /**
@@ -67,12 +59,13 @@ class Client
      * @param  array $collection
      * @param  string $class
      * @param  array $extraData
+     *
      * @return array
      */
     protected function transformCollection($collection, $class, $extraData = [])
     {
         return array_map(function ($data) use ($class, $extraData) {
-            return $class::fromArray($data + $extraData);
+            return $this->fromTopDeskIncident($data + $extraData);
         }, $collection);
     }
 }

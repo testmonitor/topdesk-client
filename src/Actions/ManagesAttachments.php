@@ -1,28 +1,33 @@
 <?php
 
-namespace TestMonitor\TOPDesk\Actions;
+namespace TestMonitor\TOPdesk\Actions;
 
 trait ManagesAttachments
 {
-
     /**
-     * Add a new TOPdesk attachment.
+     * Add a new TOPDesk attachment.
      *
-     * @param \App\Models\Media $media
-     * @param string $topDeskId
+     * @param string $path
+     * @param $topDeskId
+     * @param string|null $filename
      *
-     * @return array
+     * @return mixed
      */
-    public function addAttachment(Media $media, $topDeskId)
+    public function addAttachment(string $path, $topDeskId, ?string $filename = null)
     {
+        if (! $filename) {
+            $explodedPath = explode(DIRECTORY_SEPARATOR, $path);
+            $filename = array_pop($explodedPath);
+        }
+
         return $this->post(
             "tas/api/incidents/id/{$topDeskId}/attachments",
             [
-                'query' => ['description' => $media->file_name],
+                'query' => ['description' => $filename],
                 'multipart' => [
                     [
                         'name' => 'file',
-                        'contents' => fopen($media->getPath(), 'r'),
+                        'contents' => fopen($path, 'r'),
                     ],
                 ],
             ]

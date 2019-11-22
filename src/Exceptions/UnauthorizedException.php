@@ -1,6 +1,6 @@
 <?php
 
-namespace TestMonitor\TOPDesk\Exceptions;
+namespace TestMonitor\TOPdesk\Exceptions;
 
 use Exception;
 

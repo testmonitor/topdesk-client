@@ -35,11 +35,32 @@ You're all set up now!
 
 ## Usage
 
+You'll have to instantiate the client using your credentials:
 
+```php
+$topdesk = new \TestMonitor\TOPdesk\Client('https://mytopdesk.topdesk.net', 'username', 'password');
+```
 
 ## Examples
 
+Test the connection to TOPdesk:
 
+```php
+$topdesk->test();
+```
+
+Or create a new incident in TOPdesk:
+
+```php
+$incident = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident(
+    'John Doe', 
+    'johndoe@testmonitor.com', 
+    'firstLine', 
+    'I1234', 
+    'Some Request', 
+    'Some Request Description'
+));
+```
 
 ## Tests
 

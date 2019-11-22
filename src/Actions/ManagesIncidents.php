@@ -1,8 +1,8 @@
 <?php
 
-namespace TestMonitor\TOPDesk\Actions;
+namespace TestMonitor\TOPdesk\Actions;
 
-use TestMonitor\TOPDesk\Resources\Incident;
+use TestMonitor\TOPdesk\Resources\Incident;
 
 trait ManagesIncidents
 {
@@ -20,16 +20,16 @@ trait ManagesIncidents
     }
 
     /**
-     * @param \TestMonitor\TOPDesk\Resources\Incident $incident
+     * @param \TestMonitor\TOPdesk\Resources\Incident $incident
      *
      * @return mixed
      */
     public function createIncident(Incident $incident)
     {
         return $this->post(
-            "tas/api/incidents",
+            'tas/api/incidents',
             [
-                'json' => $incident->toArray(),
+                'json' => $this->toTopDeskIncident($incident),
             ]
         );
     }

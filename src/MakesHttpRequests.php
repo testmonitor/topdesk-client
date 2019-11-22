@@ -1,30 +1,30 @@
 <?php
 
-namespace TestMonitor\TopDeskIntegration;
+namespace TestMonitor\TOPdesk\Integration;
 
 use Exception;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use TestMonitor\TOPDesk\Exceptions\NotFoundException;
-use TestMonitor\TOPDesk\Exceptions\ValidationException;
-use TestMonitor\TOPDesk\Exceptions\FailedActionException;
-use TestMonitor\TOPDesk\Exceptions\UnauthorizedException;
+use TestMonitor\TOPdesk\Exceptions\NotFoundException;
+use TestMonitor\TOPdesk\Exceptions\ValidationException;
+use TestMonitor\TOPdesk\Exceptions\FailedActionException;
+use TestMonitor\TOPdesk\Exceptions\UnauthorizedException;
 
 trait MakesHttpRequests
 {
     /**
      * @var
      */
-    protected $guzzle;
+    public $guzzle;
 
     /**
      * Make a GET request to TopDesk servers and return the response.
      *
      * @param  string $uri
      *
-     * @throws \TestMonitor\TOPDesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPDesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPDesk\Exceptions\ValidationException
+     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
+     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
      * @return mixed
      */
     private function get($uri)
@@ -38,9 +38,9 @@ trait MakesHttpRequests
      * @param  string $uri
      * @param  array $payload
      *
-     * @throws \TestMonitor\TOPDesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPDesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPDesk\Exceptions\ValidationException
+     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
+     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
      * @return mixed
      */
     private function post($uri, array $payload = [])
@@ -54,9 +54,9 @@ trait MakesHttpRequests
      * @param  string $uri
      * @param  array $payload
      *
-     * @throws \TestMonitor\TOPDesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPDesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPDesk\Exceptions\ValidationException
+     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
+     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
      * @return mixed
      */
     private function patch($uri, array $payload = [])
@@ -70,9 +70,9 @@ trait MakesHttpRequests
      * @param  string $uri
      * @param  array $payload
      *
-     * @throws \TestMonitor\TOPDesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPDesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPDesk\Exceptions\ValidationException
+     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
+     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
      * @return mixed
      */
     private function delete($uri, array $payload = [])
@@ -87,9 +87,9 @@ trait MakesHttpRequests
      * @param  string $uri
      * @param  array $payload
      *
-     * @throws \TestMonitor\TOPDesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPDesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPDesk\Exceptions\ValidationException
+     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
+     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
      * @return mixed
      */
     private function request($verb, $uri, array $payload = [])
@@ -100,7 +100,7 @@ trait MakesHttpRequests
             $payload
         );
 
-        if (!in_array($response->getStatusCode(), [200, 201, 204, 206])) {
+        if (! in_array($response->getStatusCode(), [200, 201, 204, 206])) {
             $this->handleRequestError($response);
         }
 
@@ -112,9 +112,9 @@ trait MakesHttpRequests
     /**
      * @param  \Psr\Http\Message\ResponseInterface $response
      *
-     * @throws \TestMonitor\TOPDesk\Exceptions\ValidationException
-     * @throws \TestMonitor\TOPDesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPDesk\Exceptions\FailedActionException
+     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \Exception
      * @return void
      */
