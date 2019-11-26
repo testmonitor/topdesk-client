@@ -202,7 +202,7 @@ class Client
     }
 
     /**
-     * @param \GuzzleHttp\Client $guzzle
+     * @param \GuzzleHttp\Client $client
      */
     public function setClient(GuzzleClient $client)
     {
