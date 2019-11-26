@@ -20,7 +20,11 @@ class AttachmentsTest extends TestCase
     public function it_should_add_an_attachment_to_an_incident()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
         $response->shouldReceive('getBody')->andReturn(json_encode([
             'id' => 1,
@@ -32,12 +36,6 @@ class AttachmentsTest extends TestCase
             'externalNumber' => 'I1234',
             'request' => 'Some Request',
         ]));
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
-        $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
 
         // When
         $result = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1);
@@ -51,7 +49,11 @@ class AttachmentsTest extends TestCase
     public function it_should_add_an_attachment_to_an_incident_and_alter_the_filename()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
         $response->shouldReceive('getBody')->andReturn(json_encode([
             'id' => 1,
@@ -63,12 +65,6 @@ class AttachmentsTest extends TestCase
             'externalNumber' => 'I1234',
             'request' => 'Some Request',
         ]));
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
-        $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
 
         // When
         $result = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1, 'foobar');

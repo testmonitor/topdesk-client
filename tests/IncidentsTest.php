@@ -50,15 +50,13 @@ class IncidentsTest extends TestCase
     public function it_should_return_a_list_of_incidents()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
         $response->shouldReceive('getBody')->andReturn($this->incidents);
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
-        $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
 
         // When
         $incidents = $topdesk->incidents();
@@ -72,15 +70,13 @@ class IncidentsTest extends TestCase
     public function it_should_test_the_connection()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
         $response->shouldReceive('getBody')->andReturn($this->incidents);
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
-        $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
 
         // When
         $result = $topdesk->test();
@@ -94,7 +90,11 @@ class IncidentsTest extends TestCase
     public function it_should_create_an_incident()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
         $response->shouldReceive('getBody')->andReturn(json_encode([
             'id' => 1,
@@ -106,12 +106,6 @@ class IncidentsTest extends TestCase
             'externalNumber' => 'I1234',
             'request' => 'Some Request',
         ]));
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
-        $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
 
         // When
         $result = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident(
@@ -132,14 +126,12 @@ class IncidentsTest extends TestCase
     public function it_should_throw_an_exception_when_user_is_unauthorized()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getStatusCode')->andReturn(401);
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(401);
 
         $this->expectException(UnauthorizedException::class);
 
@@ -151,14 +143,12 @@ class IncidentsTest extends TestCase
     public function it_should_throw_an_exception_when_user_has_not_the_correct_permissions()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getStatusCode')->andReturn(403);
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(403);
 
         $this->expectException(UnauthorizedException::class);
 
@@ -170,14 +160,12 @@ class IncidentsTest extends TestCase
     public function it_should_throw_an_exception_when_the_resource_is_not_found()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getStatusCode')->andReturn(404);
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(404);
 
         $this->expectException(NotFoundException::class);
 
@@ -209,15 +197,13 @@ class IncidentsTest extends TestCase
     public function it_should_throw_an_exception_when_the_action_is_failed()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getStatusCode')->andReturn(400);
-        $response->shouldReceive('getBody')->andReturn('Message');
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(400);
+        $response->shouldReceive('getBody')->andReturnNull();
 
         $this->expectException(FailedActionException::class);
 
