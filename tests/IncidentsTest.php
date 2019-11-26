@@ -38,6 +38,14 @@ class IncidentsTest extends TestCase
         ]);
     }
 
+    /**
+     * Teardown the test.
+     */
+    public function tearDown(): void
+    {
+        Mockery::close();
+    }
+
     /** @test */
     public function it_should_return_a_list_of_incidents()
     {
@@ -196,13 +204,5 @@ class IncidentsTest extends TestCase
 
         // When
         $topdesk->test();
-    }
-
-    /**
-     * Teardown the test.
-     */
-    public function tearDown(): void
-    {
-        Mockery::close();
     }
 }

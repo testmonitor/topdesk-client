@@ -8,6 +8,8 @@
 [![StyleCI](https://styleci.io/repos/222957448/shield)](https://styleci.io/repos/222957448)
 [![License](https://poser.pugx.org/testmonitor/topdesk-client/license)](https://packagist.org/packages/testmonitor/topdesk-client)
 
+This package provides a very basic, convenient, and unified wrapper for the TOPdesk REST API.
+
 ## Table of Contents
 
 - [Installation](#installation)
