@@ -1,4 +1,4 @@
-# TestMonitor TOPDesk Client
+# TestMonitor TOPdesk Client
 
 [![Latest Stable Version](https://poser.pugx.org/testmonitor/topdesk-client/v/stable)](https://packagist.org/packages/testmonitor/topdesk-client)
 [![CircleCI](https://img.shields.io/circleci/project/github/testmonitor/topdesk-client.svg)](https://circleci.com/gh/testmonitor/topdesk-client)
@@ -52,7 +52,7 @@ $topdesk->test();
 Or create a new incident in TOPdesk:
 
 ```php
-$incident = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident(
+$incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident(
     'John Doe', 
     'johndoe@testmonitor.com', 
     'firstLine', 
