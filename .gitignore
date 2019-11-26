@@ -10,5 +10,3 @@ phpunit.xml
 /build
 
 /.idea
-
-test.php

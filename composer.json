@@ -1,6 +1,6 @@
 {
   "name": "testmonitor/topdesk-client",
-  "description": "The TestMonitor TOPDesk client.",
+  "description": "The TestMonitor TOPdesk client.",
   "keywords": ["testmonitor", "topdesk", "client"],
   "authors": [
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TestMonitor\Jira\Tests;
+namespace TestMonitor\TOPdesk\Tests;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +50,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         // When
         $incidents = $topdesk->incidents();
@@ -72,7 +72,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         // When
         $result = $topdesk->test();
@@ -103,7 +103,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         // When
         $result = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident(
@@ -121,37 +121,6 @@ class IncidentsTest extends TestCase
     }
 
     /** @test */
-    public function it_should_add_an_attachment_to_an_incident()
-    {
-        // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode([
-            'id' => 1,
-            'caller' => [
-                'dynamicName' => 'John Doe',
-                'email' => 'johndoe@testmonitor.com',
-            ],
-            'briefDescription' => 'Some Request Description',
-            'externalNumber' => 'I1234',
-            'request' => 'Some Request',
-        ]));
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
-        $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
-
-        // When
-        $result = $topdesk->addAttachment(__DIR__ . '/logo.png', 1);
-
-        // Then
-        $this->assertIsArray($result);
-        $this->assertEquals('John Doe', $result['caller']['dynamicName']);
-    }
-
-    /** @test */
     public function it_should_throw_an_exception_when_user_is_unauthorized()
     {
         // Given
@@ -162,7 +131,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         $this->expectException(UnauthorizedException::class);
 
@@ -181,7 +150,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         $this->expectException(NotFoundException::class);
 
@@ -201,7 +170,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         $this->expectException(ValidationException::class);
 
@@ -221,7 +190,7 @@ class IncidentsTest extends TestCase
         $guzzle->shouldReceive('request')->andReturn($response);
 
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->guzzle = $guzzle;
+        $topdesk->setClient($guzzle);
 
         $this->expectException(FailedActionException::class);
 
