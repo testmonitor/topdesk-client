@@ -190,7 +190,7 @@ class Client
             throw new NotFoundException();
         }
 
-        if ($response->getStatusCode() == 401) {
+        if ($response->getStatusCode() == 401 || $response->getStatusCode() == 403) {
             throw new UnauthorizedException();
         }
 

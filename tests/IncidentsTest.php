@@ -148,6 +148,25 @@ class IncidentsTest extends TestCase
     }
 
     /** @test */
+    public function it_should_throw_an_exception_when_user_has_not_the_correct_permissions()
+    {
+        // Given
+        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $response->shouldReceive('getStatusCode')->andReturn(403);
+
+        $guzzle = Mockery::mock('GuzzleHttp\Client');
+        $guzzle->shouldReceive('request')->andReturn($response);
+
+        $topdesk = new Client('url', 'user', 'pass');
+        $topdesk->setClient($guzzle);
+
+        $this->expectException(UnauthorizedException::class);
+
+        // When
+        $topdesk->test();
+    }
+
+    /** @test */
     public function it_should_throw_an_exception_when_the_resource_is_not_found()
     {
         // Given
