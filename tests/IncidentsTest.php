@@ -67,26 +67,6 @@ class IncidentsTest extends TestCase
     }
 
     /** @test */
-    public function it_should_test_the_connection()
-    {
-        // Given
-        $topdesk = new Client('url', 'user', 'pass');
-
-        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
-
-        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
-        $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn($this->incidents);
-
-        // When
-        $result = $topdesk->test();
-
-        // Then
-        $this->assertIsBool($result);
-        $this->assertTrue($result);
-    }
-
-    /** @test */
     public function it_should_create_an_incident()
     {
         // Given
@@ -108,14 +88,14 @@ class IncidentsTest extends TestCase
         ]));
 
         // When
-        $result = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident(
-            'John Doe',
-            'johndoe@testmonitor.com',
-            'firstLine',
-            'I1234',
-            'Some Request',
-            'Some Request Description'
-        ));
+        $result = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident([
+            'callerName' => 'John Doe',
+            'callerEmail' => 'johndoe@testmonitor.com',
+            'status' => 'firstLine',
+            'number' => 'I1234',
+            'briefDescription' => 'Some Request',
+            'request' => 'Some Request Description',
+        ]));
 
         // Then
         $this->assertIsArray($result);
@@ -136,7 +116,7 @@ class IncidentsTest extends TestCase
         $this->expectException(UnauthorizedException::class);
 
         // When
-        $topdesk->test();
+        $topdesk->incidents();
     }
 
     /** @test */
@@ -153,7 +133,7 @@ class IncidentsTest extends TestCase
         $this->expectException(UnauthorizedException::class);
 
         // When
-        $topdesk->test();
+        $topdesk->incidents();
     }
 
     /** @test */
@@ -170,7 +150,7 @@ class IncidentsTest extends TestCase
         $this->expectException(NotFoundException::class);
 
         // When
-        $topdesk->test();
+        $topdesk->incidents();
     }
 
     /** @test */
@@ -190,7 +170,7 @@ class IncidentsTest extends TestCase
         $this->expectException(ValidationException::class);
 
         // When
-        $topdesk->test();
+        $topdesk->incidents();
     }
 
     /** @test */
@@ -208,6 +188,24 @@ class IncidentsTest extends TestCase
         $this->expectException(FailedActionException::class);
 
         // When
-        $topdesk->test();
+        $topdesk->incidents();
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_the_response_code_is_other_then_ok()
+    {
+        // Given
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(418);
+        $response->shouldReceive('getBody')->andReturnNull();
+
+        $this->expectException(\Exception::class);
+
+        // When
+        $topdesk->incidents();
     }
 }

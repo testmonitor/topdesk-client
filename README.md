@@ -45,22 +45,22 @@ $topdesk = new \TestMonitor\TOPdesk\Client('https://mytopdesk.topdesk.net', 'use
 
 ## Examples
 
-Test the connection to TOPdesk:
+Get a list of incidents out of TOPdesk:
 
 ```php
-$topdesk->test();
+$topdesk->incidents();
 ```
 
-Or create a new incident in TOPdesk:
+or create a new incident in TOPdesk:
 
 ```php
 $incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident(
-    'John Doe', 
-    'johndoe@testmonitor.com', 
-    'firstLine', 
-    'I1234', 
-    'Some Request', 
-    'Some Request Description'
+    'callerName' => 'John Doe', 
+    'callerEmail' => 'johndoe@testmonitor.com', 
+    'status' => 'firstLine', 
+    'number' => 'I1234', 
+    'briefDescription' => 'Some Request', 
+    'request' => 'Some Request Description'
 ));
 ```
 

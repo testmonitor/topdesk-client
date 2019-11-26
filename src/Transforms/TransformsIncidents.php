@@ -31,14 +31,14 @@ trait TransformsIncidents
      */
     protected function fromTopDeskIncident(array $incident): Incident
     {
-        return new Incident(
-            $incident['caller']['dynamicName'],
-            $incident['caller']['email'] ?? '',
-            $incident['status'] ?? '',
-            $incident['externalNumber'] ?? '',
-            $incident['request'] ?? '',
-            $incident['briefDescription'] ?? '',
-            $incident['id']
-        );
+        return new Incident([
+            'callerName' => $incident['caller']['dynamicName'],
+            'callerEmail' => $incident['caller']['email'] ?? '',
+            'status' => $incident['status'] ?? '',
+            'number' => $incident['externalNumber'] ?? '',
+            'request' => $incident['request'] ?? '',
+            'briefDescription' => $incident['briefDescription'] ?? '',
+            'id' => $incident['id'],
+        ]);
     }
 }

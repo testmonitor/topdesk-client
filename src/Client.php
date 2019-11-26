@@ -54,32 +54,6 @@ class Client
     }
 
     /**
-     * Send a test request to TOPDesk.
-     *
-     * @return bool
-     */
-    public function test()
-    {
-        return (bool) $this->incidents();
-    }
-
-    /**
-     * Transform the items of the collection to the given class.
-     *
-     * @param  array $collection
-     * @param  string $class
-     * @param  array $extraData
-     *
-     * @return array
-     */
-    protected function transformCollection($collection, $class, $extraData = [])
-    {
-        return array_map(function ($data) use ($class, $extraData) {
-            return $this->fromTopDeskIncident($data + $extraData);
-        }, $collection);
-    }
-
-    /**
      * Make a GET request to TopDesk servers and return the response.
      *
      * @param  string $uri
@@ -108,38 +82,6 @@ class Client
     private function post($uri, array $payload = [])
     {
         return $this->request('POST', $uri, $payload);
-    }
-
-    /**
-     * Make a PUT request to TopDesk servers and return the response.
-     *
-     * @param  string $uri
-     * @param  array $payload
-     *
-     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
-     * @return mixed
-     */
-    private function patch($uri, array $payload = [])
-    {
-        return $this->request('PATCH', $uri, $payload);
-    }
-
-    /**
-     * Make a DELETE request to TopDesk servers and return the response.
-     *
-     * @param  string $uri
-     * @param  array $payload
-     *
-     * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
-     * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
-     * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
-     * @return mixed
-     */
-    private function delete($uri, array $payload = [])
-    {
-        return $this->request('DELETE', $uri, $payload);
     }
 
     /**
@@ -178,7 +120,6 @@ class Client
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \Exception
-     * @return void
      */
     private function handleRequestError(ResponseInterface $response)
     {
@@ -186,7 +127,7 @@ class Client
             throw new ValidationException(json_decode((string) $response->getBody(), true));
         }
 
-        if ($response->getStatusCode() == 404) {
+        if ($response->getStatusCode() == 404 || $response->getStatusCode() == 302) {
             throw new NotFoundException();
         }
 
@@ -215,13 +156,14 @@ class Client
     protected function client()
     {
         return $this->client ?? new \GuzzleHttp\Client([
-            'base_uri' => $this->instance . '/',
-            'auth' => [$this->username, $this->password],
-            'http_errors' => false,
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-        ]);
+                'base_uri' => $this->instance . '/',
+                'auth' => [$this->username, $this->password],
+                'http_errors' => false,
+                'allow_redirects' => false,
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
     }
 }

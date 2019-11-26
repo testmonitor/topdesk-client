@@ -13,10 +13,11 @@ trait ManagesIncidents
      */
     public function incidents()
     {
-        return $this->transformCollection(
-            $this->get('tas/api/incidents'),
-            Incident::class
-        );
+        $response = $this->get('tas/api/incidents');
+
+        return array_map(function ($incident) {
+            return $this->fromTopDeskIncident($incident);
+        }, $response);
     }
 
     /**

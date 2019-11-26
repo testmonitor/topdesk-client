@@ -2,7 +2,7 @@
 
 namespace TestMonitor\TOPdesk\Resources;
 
-class Incident
+class Incident extends Resource
 {
     /**
      * The id of the incident.
@@ -52,27 +52,16 @@ class Incident
     /**
      * Incident constructor.
      *
-     * @param string $status
-     * @param string $number
-     * @param string $request
-     * @param string $briefDescription
-     * @param string|null $id
+     * @param array $incident
      */
-    public function __construct(
-        string $callerName,
-        string $callerEmail,
-        string $status,
-        string $number,
-        string $request,
-        string $briefDescription,
-        ?string $id = null
-    ) {
-        $this->id = $id;
-        $this->status = $status;
-        $this->number = $number;
-        $this->request = $request;
-        $this->briefDescription = $briefDescription;
-        $this->callerEmail = $callerEmail;
-        $this->callerName = $callerName;
+    public function __construct(array $attributes)
+    {
+        $this->id = $attributes['id'] ?? null;
+        $this->status = $attributes['status'] ?? 'firstLine';
+        $this->number = $attributes['number'];
+        $this->request = $attributes['request'];
+        $this->briefDescription = $attributes['briefDescription'];
+        $this->callerEmail = $attributes['callerEmail'];
+        $this->callerName = $attributes['callerName'];
     }
 }

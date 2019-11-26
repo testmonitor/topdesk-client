@@ -5,7 +5,7 @@ namespace TestMonitor\TOPdesk\Actions;
 trait ManagesAttachments
 {
     /**
-     * Add a new TOPDesk attachment.
+     * Add a new TOPdesk attachment.
      *
      * @param string $path
      * @param $topDeskId
@@ -15,15 +15,10 @@ trait ManagesAttachments
      */
     public function addAttachment(string $path, $topDeskId, ?string $filename = null)
     {
-        if (! $filename) {
-            $explodedPath = explode(DIRECTORY_SEPARATOR, $path);
-            $filename = array_pop($explodedPath);
-        }
-
         return $this->post(
             "tas/api/incidents/id/{$topDeskId}/attachments",
             [
-                'query' => ['description' => $filename],
+                'query' => ['description' =>  $filename ?? basename($path)],
                 'multipart' => [
                     [
                         'name' => 'file',
