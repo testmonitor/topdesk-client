@@ -27,11 +27,13 @@ trait ManagesIncidents
      */
     public function createIncident(Incident $incident)
     {
-        return $this->post(
+        $response =  $this->post(
             'tas/api/incidents',
             [
                 'json' => $this->toTopDeskIncident($incident),
             ]
         );
+
+        return $this->fromTopDeskIncident($response);
     }
 }
