@@ -98,8 +98,8 @@ class IncidentsTest extends TestCase
         ]));
 
         // Then
-        $this->assertIsArray($result);
-        $this->assertEquals('John Doe', $result['caller']['dynamicName']);
+        $this->assertInstanceOf(\TestMonitor\TOPDesk\Resources\Incident::class, $result);
+        $this->assertEquals('John Doe', $result->callerName);
     }
 
     /** @test */

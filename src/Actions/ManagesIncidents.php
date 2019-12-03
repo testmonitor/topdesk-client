@@ -23,9 +23,9 @@ trait ManagesIncidents
     /**
      * @param \TestMonitor\TOPdesk\Resources\Incident $incident
      *
-     * @return mixed
+     * @return Incident
      */
-    public function createIncident(Incident $incident)
+    public function createIncident(Incident $incident): Incident
     {
         $response =  $this->post(
             'tas/api/incidents',
