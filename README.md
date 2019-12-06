@@ -5,7 +5,7 @@
 [![Travis Build](https://travis-ci.com/testmonitor/topdesk-client.svg?branch=master)](https://travis-ci.com/testmonitor/topdesk-client)
 [![Code Coverage](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/?branch=master)
 [![Code Quality](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/?branch=master)
-[![StyleCI](https://styleci.io/repos/222957448/shield)](https://styleci.io/repos/222957448)
+[![StyleCI](https://styleci.io/repos/223037352/shield)](https://styleci.io/repos/223037352)
 [![License](https://poser.pugx.org/testmonitor/topdesk-client/license)](https://packagist.org/packages/testmonitor/topdesk-client)
 
 This package provides a very basic, convenient, and unified wrapper for the TOPdesk REST API.
