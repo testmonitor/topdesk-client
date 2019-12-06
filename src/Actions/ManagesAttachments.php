@@ -9,16 +9,15 @@ trait ManagesAttachments
      *
      * @param string $path
      * @param $topDeskId
-     * @param string|null $filename
      *
      * @return mixed
      */
-    public function addAttachment(string $path, $topDeskId, ?string $filename = null)
+    public function addAttachment(string $path, $topDeskId)
     {
         return $this->post(
             "tas/api/incidents/id/{$topDeskId}/attachments",
             [
-                'query' => ['description' =>  $filename ?? basename($path)],
+                'query' => ['description' =>  basename($path)],
                 'multipart' => [
                     [
                         'name' => 'file',
