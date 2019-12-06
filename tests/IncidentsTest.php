@@ -175,18 +175,18 @@ class IncidentsTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_a_list_of_errors_wheb_validation_is_failed()
+    public function it_should_throw_an_exception_when_topdesk_returns_400_error()
     {
         // Given
-        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getStatusCode')->andReturn(422);
-        $response->shouldReceive('getBody')->andReturn(json_encode(['message' => 'invalid']));
-
-        $guzzle = Mockery::mock('GuzzleHttp\Client');
-        $guzzle->shouldReceive('request')->andReturn($response);
-
         $topdesk = new Client('url', 'user', 'pass');
-        $topdesk->setClient($guzzle);
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(400);
+        $response->shouldReceive('getBody')->andReturnNull();
+
+        $this->expectException(FailedActionException::class);
 
         // When
         $topdesk->incidents();
