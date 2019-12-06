@@ -88,7 +88,7 @@ class IncidentsTest extends TestCase
         ]));
 
         // When
-        $result = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident([
+        $incident = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident([
             'callerName' => 'John Doe',
             'callerEmail' => 'johndoe@testmonitor.com',
             'status' => 'firstLine',
@@ -98,8 +98,9 @@ class IncidentsTest extends TestCase
         ]));
 
         // Then
-        $this->assertInstanceOf(\TestMonitor\TOPDesk\Resources\Incident::class, $result);
-        $this->assertEquals('John Doe', $result->callerName);
+        $this->assertInstanceOf(\TestMonitor\TOPDesk\Resources\Incident::class, $incident);
+        $this->assertEquals('John Doe', $incident->callerName);
+        $this->assertIsArray($incident->toArray());
     }
 
     /** @test */
@@ -174,18 +175,18 @@ class IncidentsTest extends TestCase
     }
 
     /** @test */
-    public function it_should_throw_an_exception_when_the_action_is_failed()
+    public function it_should_return_a_list_of_errors_wheb_validation_is_failed()
     {
         // Given
+        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $response->shouldReceive('getStatusCode')->andReturn(422);
+        $response->shouldReceive('getBody')->andReturn(json_encode(['message' => 'invalid']));
+
+        $guzzle = Mockery::mock('GuzzleHttp\Client');
+        $guzzle->shouldReceive('request')->andReturn($response);
+
         $topdesk = new Client('url', 'user', 'pass');
-
-        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
-
-        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
-        $response->shouldReceive('getStatusCode')->andReturn(400);
-        $response->shouldReceive('getBody')->andReturnNull();
-
-        $this->expectException(FailedActionException::class);
+        $topdesk->setClient($guzzle);
 
         // When
         $topdesk->incidents();
