@@ -43,6 +43,8 @@ You'll have to instantiate the client using your credentials:
 $topdesk = new \TestMonitor\TOPdesk\Client('https://mytopdesk.topdesk.net', 'username', 'password');
 ```
 
+Next, you can start interacting with TOPdesk. 
+
 ## Examples
 
 Get a list of incidents out of TOPdesk:
@@ -54,14 +56,14 @@ $topdesk->incidents();
 or create a new incident in TOPdesk:
 
 ```php
-$incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident(
+$incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident([
     'callerName' => 'John Doe', 
     'callerEmail' => 'johndoe@testmonitor.com', 
     'status' => 'firstLine', 
     'number' => 'I1234', 
     'briefDescription' => 'Some Request', 
     'request' => 'Some Request Description'
-));
+]));
 ```
 
 ## Tests
