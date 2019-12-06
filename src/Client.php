@@ -17,7 +17,6 @@ class Client
     use ManagesAttachments,
         ManagesIncidents;
 
-
     /**
      * @var string
      */
