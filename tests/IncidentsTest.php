@@ -192,7 +192,7 @@ class IncidentsTest extends TestCase
         $response->shouldReceive('getBody')->andReturn(json_encode($this->incident));
 
         // When
-        $incident = $topdesk->createIncident(new \TestMonitor\TOPDesk\Resources\Incident([
+        $incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident([
             'callerName' => $this->incident['caller']['dynamicName'],
             'callerEmail' => $this->incident['caller']['email'],
             'status' => $this->incident['status'],
