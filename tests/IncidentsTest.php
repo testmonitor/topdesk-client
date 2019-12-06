@@ -5,11 +5,11 @@ namespace TestMonitor\TOPdesk\Tests;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use TestMonitor\TOPdesk\Client;
+use TestMonitor\TOPdesk\Resources\Incident;
 use TestMonitor\TOPdesk\Exceptions\NotFoundException;
 use TestMonitor\TOPdesk\Exceptions\ValidationException;
 use TestMonitor\TOPdesk\Exceptions\FailedActionException;
 use TestMonitor\TOPdesk\Exceptions\UnauthorizedException;
-use TestMonitor\TOPdesk\Resources\Incident;
 
 class IncidentsTest extends TestCase
 {

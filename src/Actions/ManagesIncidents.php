@@ -3,9 +3,12 @@
 namespace TestMonitor\TOPdesk\Actions;
 
 use TestMonitor\TOPdesk\Resources\Incident;
+use TestMonitor\TOPdesk\Transforms\TransformsIncidents;
 
 trait ManagesIncidents
 {
+    use TransformsIncidents;
+
     /**
      * Get all incidents.
      *

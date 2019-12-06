@@ -9,15 +9,14 @@ use TestMonitor\TOPdesk\Actions\ManagesIncidents;
 use TestMonitor\TOPdesk\Actions\ManagesAttachments;
 use TestMonitor\TOPdesk\Exceptions\NotFoundException;
 use TestMonitor\TOPdesk\Exceptions\ValidationException;
-use TestMonitor\TOPdesk\Transforms\TransformsIncidents;
 use TestMonitor\TOPdesk\Exceptions\FailedActionException;
 use TestMonitor\TOPdesk\Exceptions\UnauthorizedException;
 
 class Client
 {
     use ManagesAttachments,
-        ManagesIncidents,
-        TransformsIncidents;
+        ManagesIncidents;
+
 
     /**
      * @var string
@@ -83,11 +82,11 @@ class Client
      *
      * @param string $uri
      *
-     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     * @return mixed
      */
     protected function get($uri)
     {
@@ -100,11 +99,11 @@ class Client
      * @param string $uri
      * @param array $payload
      *
-     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     * @return mixed
      */
     protected function post($uri, array $payload = [])
     {
@@ -118,11 +117,11 @@ class Client
      * @param string $uri
      * @param array $payload
      *
-     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     * @return mixed
      */
     protected function request($verb, $uri, array $payload = [])
     {
