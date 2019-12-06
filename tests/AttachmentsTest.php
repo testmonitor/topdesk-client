@@ -9,6 +9,31 @@ use TestMonitor\TOPdesk\Client;
 class AttachmentsTest extends TestCase
 {
     /**
+     * @var array
+     */
+    protected $incident;
+
+    /**
+     * Setup the test.
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->incident = [
+            'id' => 1,
+            'caller' => [
+                'dynamicName' => 'Foo Bar',
+                'email' => 'foo@bar.test',
+            ],
+            'status' => 'firstLine',
+            'briefDescription' => 'Small issues',
+            'externalNumber' => 'I123',
+            'request' => 'Do something about all the problems',
+        ];
+    }
+
+    /**
      * Teardown the test.
      */
     public function tearDown(): void
@@ -26,51 +51,13 @@ class AttachmentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode([
-            'id' => 1,
-            'caller' => [
-                'dynamicName' => 'John Doe',
-                'email' => 'johndoe@testmonitor.com',
-            ],
-            'briefDescription' => 'Some Request Description',
-            'externalNumber' => 'I1234',
-            'request' => 'Some Request',
-        ]));
+        $response->shouldReceive('getBody')->andReturn(json_encode($this->incident));
 
         // When
         $result = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1);
 
         // Then
         $this->assertIsArray($result);
-        $this->assertEquals('John Doe', $result['caller']['dynamicName']);
-    }
-
-    /** @test */
-    public function it_should_add_an_attachment_to_an_incident_and_alter_the_filename()
-    {
-        // Given
-        $topdesk = new Client('url', 'user', 'pass');
-
-        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
-
-        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
-        $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode([
-            'id' => 1,
-            'caller' => [
-                'dynamicName' => 'John Doe',
-                'email' => 'johndoe@testmonitor.com',
-            ],
-            'briefDescription' => 'Some Request Description',
-            'externalNumber' => 'I1234',
-            'request' => 'Some Request',
-        ]));
-
-        // When
-        $result = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1, 'foobar');
-
-        // Then
-        $this->assertIsArray($result);
-        $this->assertEquals('John Doe', $result['caller']['dynamicName']);
+        $this->assertEquals($this->incident['caller']['dynamicName'], $result['caller']['dynamicName']);
     }
 }
