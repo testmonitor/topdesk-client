@@ -2,19 +2,24 @@
 
 namespace TestMonitor\TOPdesk\Actions;
 
+use TestMonitor\TOPdesk\Resources\Attachment;
+use TestMonitor\DevOps\Transforms\TransformsAttachments;
+
 trait ManagesAttachments
 {
+    use TransformsAttachments;
+
     /**
      * Add a new TOPdesk attachment.
      *
      * @param string $path
-     * @param $topDeskId
+     * @param string $topDeskId
      *
-     * @return mixed
+     * @return Attachment
      */
-    public function addAttachment(string $path, $topDeskId)
+    public function addAttachment(string $path, $topDeskId): Attachment
     {
-        return $this->post(
+        $response = $this->post(
             "tas/api/incidents/id/{$topDeskId}/attachments",
             [
                 'query' => ['description' =>  basename($path)],
@@ -26,5 +31,7 @@ trait ManagesAttachments
                 ],
             ]
         );
+
+        return $this->fromTopDeskAttachment($response);
     }
 }

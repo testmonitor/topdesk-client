@@ -5,13 +5,14 @@ namespace TestMonitor\TOPdesk\Tests;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use TestMonitor\TOPdesk\Client;
+use TestMonitor\TOPdesk\Resources\Attachment;
 
 class AttachmentsTest extends TestCase
 {
     /**
      * @var array
      */
-    protected $incident;
+    protected $attachment;
 
     /**
      * Setup the test.
@@ -20,16 +21,10 @@ class AttachmentsTest extends TestCase
     {
         parent::setUp();
 
-        $this->incident = [
-            'id' => 1,
-            'caller' => [
-                'dynamicName' => 'Foo Bar',
-                'email' => 'foo@bar.test',
-            ],
-            'status' => 'firstLine',
-            'briefDescription' => 'Small issues',
-            'externalNumber' => 'I123',
-            'request' => 'Do something about all the problems',
+        $this->attachment = [
+            'id' => '123',
+            'fileName' => 'logo.png',
+            'downloadUrl' => '/download/url',
         ];
     }
 
@@ -51,13 +46,13 @@ class AttachmentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode($this->incident));
+        $response->shouldReceive('getBody')->andReturn(json_encode($this->attachment));
 
         // When
-        $result = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1);
+        $attachment = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1);
 
         // Then
-        $this->assertIsArray($result);
-        $this->assertEquals($this->incident['caller']['dynamicName'], $result['caller']['dynamicName']);
+        $this->assertInstanceOf(Attachment::class, $attachment);
+        $this->assertEquals($this->attachment['id'], $attachment->id);
     }
 }
