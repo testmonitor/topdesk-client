@@ -9,7 +9,7 @@ trait ManagesIncidents
     /**
      * Get all incidents.
      *
-     * @return mixed
+     * @return array
      */
     public function incidents()
     {

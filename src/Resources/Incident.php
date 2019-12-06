@@ -52,7 +52,7 @@ class Incident extends Resource
     /**
      * Incident constructor.
      *
-     * @param array $incident
+     * @param array $attributes
      */
     public function __construct(array $attributes)
     {

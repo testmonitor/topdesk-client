@@ -54,16 +54,42 @@ class Client
     }
 
     /**
+     * @return \GuzzleHttp\Client
+     */
+    protected function client()
+    {
+        return $this->client ?? new \GuzzleHttp\Client([
+                'base_uri' => $this->instance . '/',
+                'auth' => [$this->username, $this->password],
+                'http_errors' => false,
+                'allow_redirects' => false,
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+    }
+
+    /**
+     * @param \GuzzleHttp\Client $client
+     */
+    public function setClient(GuzzleClient $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
      * Make a GET request to TopDesk servers and return the response.
      *
-     * @param  string $uri
+     * @param string $uri
      *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
-     * @return mixed
      */
-    private function get($uri)
+    protected function get($uri)
     {
         return $this->request('GET', $uri);
     }
@@ -71,15 +97,16 @@ class Client
     /**
      * Make a POST request to TopDesk servers and return the response.
      *
-     * @param  string $uri
-     * @param  array $payload
+     * @param string $uri
+     * @param array $payload
      *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
-     * @return mixed
      */
-    private function post($uri, array $payload = [])
+    protected function post($uri, array $payload = [])
     {
         return $this->request('POST', $uri, $payload);
     }
@@ -87,16 +114,17 @@ class Client
     /**
      * Make request to TopDesk servers and return the response.
      *
-     * @param  string $verb
-     * @param  string $uri
-     * @param  array $payload
+     * @param string $verb
+     * @param string $uri
+     * @param array $payload
      *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
-     * @return mixed
      */
-    private function request($verb, $uri, array $payload = [])
+    protected function request($verb, $uri, array $payload = [])
     {
         $response = $this->client()->request(
             $verb,
@@ -121,7 +149,7 @@ class Client
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \Exception
      */
-    private function handleRequestError(ResponseInterface $response)
+    protected function handleRequestError(ResponseInterface $response)
     {
         if ($response->getStatusCode() == 422) {
             throw new ValidationException(json_decode((string) $response->getBody(), true));
@@ -140,30 +168,5 @@ class Client
         }
 
         throw new Exception((string) $response->getStatusCode());
-    }
-
-    /**
-     * @param \GuzzleHttp\Client $client
-     */
-    public function setClient(GuzzleClient $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
-     * @return \GuzzleHttp\Client
-     */
-    protected function client()
-    {
-        return $this->client ?? new \GuzzleHttp\Client([
-                'base_uri' => $this->instance . '/',
-                'auth' => [$this->username, $this->password],
-                'http_errors' => false,
-                'allow_redirects' => false,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-            ]);
     }
 }
