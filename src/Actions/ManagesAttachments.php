@@ -3,7 +3,7 @@
 namespace TestMonitor\TOPdesk\Actions;
 
 use TestMonitor\TOPdesk\Resources\Attachment;
-use TestMonitor\DevOps\Transforms\TransformsAttachments;
+use TestMonitor\TOPdesk\Transforms\TransformsAttachments;
 
 trait ManagesAttachments
 {
