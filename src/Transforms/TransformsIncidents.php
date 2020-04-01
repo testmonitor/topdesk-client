@@ -32,7 +32,7 @@ trait TransformsIncidents
     protected function fromTopDeskIncident(array $incident): Incident
     {
         return new Incident([
-            'callerName' => $incident['caller']['dynamicName'],
+            'callerName' => $incident['caller']['dynamicName'] ?? '',
             'callerEmail' => $incident['caller']['email'] ?? '',
             'status' => $incident['status'] ?? '',
             'number' => $incident['externalNumber'] ?? '',
