@@ -57,15 +57,15 @@ class Client
     protected function client()
     {
         return $this->client ?? new \GuzzleHttp\Client([
-                'base_uri' => $this->instance . '/',
-                'auth' => [$this->username, $this->password],
-                'http_errors' => false,
-                'allow_redirects' => false,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-            ]);
+            'base_uri' => $this->instance . '/',
+            'auth' => [$this->username, $this->password],
+            'http_errors' => false,
+            'allow_redirects' => false,
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+        ]);
     }
 
     /**
