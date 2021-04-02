@@ -2,6 +2,7 @@
 
 namespace TestMonitor\TOPdesk\Transforms;
 
+use TestMonitor\TOPdesk\Validator;
 use TestMonitor\TOPdesk\Resources\Incident;
 
 trait TransformsIncidents
@@ -31,6 +32,8 @@ trait TransformsIncidents
      */
     protected function fromTopDeskIncident(array $incident): Incident
     {
+        Validator::keyExists($incident, 'id');
+
         return new Incident([
             'callerName' => $incident['caller']['dynamicName'] ?? '',
             'callerEmail' => $incident['caller']['email'] ?? '',

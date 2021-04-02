@@ -2,8 +2,6 @@
 
 namespace TestMonitor\TOPdesk\Exceptions;
 
-use Exception;
-
 class NotFoundException extends Exception
 {
     /**
