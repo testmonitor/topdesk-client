@@ -13,7 +13,7 @@ trait TransformsAttachments
      */
     protected function fromTopDeskAttachment(array $attachment): Attachment
     {
-        Validator::keysExists($attachment, ['id', 'filename', 'url']);
+        Validator::keysExists($attachment, ['id', 'fileName', 'downloadUrl']);
 
         return new Attachment([
             'id' => $attachment['id'],
