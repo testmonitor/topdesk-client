@@ -85,6 +85,7 @@ class Client
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     *
      * @return mixed
      */
     protected function get($uri)
@@ -102,6 +103,7 @@ class Client
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     *
      * @return mixed
      */
     protected function post($uri, array $payload = [])
@@ -120,6 +122,7 @@ class Client
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
+     *
      * @return mixed
      */
     protected function request($verb, $uri, array $payload = [])

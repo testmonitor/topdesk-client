@@ -28,7 +28,6 @@ trait ManagesIncidents
 
     /**
      * @param \TestMonitor\TOPdesk\Resources\Incident $incident
-     *
      * @return Incident
      */
     public function createIncident(Incident $incident): Incident

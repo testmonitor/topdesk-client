@@ -9,7 +9,6 @@ trait TransformsIncidents
 {
     /**
      * @param \TestMonitor\TOPdesk\Resources\Incident $incident
-     *
      * @return array
      */
     protected function toTopDeskIncident(Incident $incident): array
@@ -27,7 +26,6 @@ trait TransformsIncidents
 
     /**
      * @param array $incident
-     *
      * @return \TestMonitor\TOPdesk\Resources\Incident
      */
     protected function fromTopDeskIncident(array $incident): Incident
