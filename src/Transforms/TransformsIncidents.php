@@ -43,7 +43,7 @@ trait TransformsIncidents
             'request' => $incident['request'] ?? '',
             'briefDescription' => $incident['briefDescription'] ?? '',
             'id' => $incident['id'],
-            'branch' => $incident['branch']['id'],
+            'branch' => $incident['branch']['id'] ?? '',
         ]);
     }
 }
