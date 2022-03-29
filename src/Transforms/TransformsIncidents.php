@@ -15,6 +15,9 @@ trait TransformsIncidents
     {
         return [
             'caller' => [
+                'branch' => [
+                    'id' => $incident->branch,
+                ],
                 'dynamicName' => $incident->callerName,
                 'email' => $incident->callerEmail,
             ],

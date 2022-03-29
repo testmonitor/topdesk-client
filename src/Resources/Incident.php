@@ -12,6 +12,13 @@ class Incident extends Resource
     public $id;
 
     /**
+     * The branch of the incident.
+     *
+     * @var string
+     */
+    public $branch;
+
+    /**
      * The status of the incident.
      *
      * @var string
@@ -57,6 +64,7 @@ class Incident extends Resource
     public function __construct(array $attributes)
     {
         $this->id = $attributes['id'] ?? null;
+        $this->branch = $attributes['branch'] ?? null;
         $this->status = $attributes['status'] ?? 'firstLine';
         $this->number = $attributes['number'];
         $this->request = $attributes['request'];
