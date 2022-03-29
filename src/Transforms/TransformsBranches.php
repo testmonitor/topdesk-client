@@ -2,8 +2,8 @@
 
 namespace TestMonitor\TOPdesk\Transforms;
 
-use TestMonitor\TOPdesk\Resources\Branche;
 use TestMonitor\TOPdesk\Validator;
+use TestMonitor\TOPdesk\Resources\Branche;
 
 trait TransformsBranches
 {
