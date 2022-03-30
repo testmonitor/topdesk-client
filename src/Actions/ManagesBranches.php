@@ -20,8 +20,8 @@ trait ManagesBranches
 
         Validator::isArray($response);
 
-        return array_map(function ($branche) {
-            return $this->fromTopDeskBranche($branche);
+        return array_map(function ($branch) {
+            return $this->fromTopDeskBranche($branch);
         }, $response);
     }
 }

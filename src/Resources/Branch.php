@@ -2,7 +2,7 @@
 
 namespace TestMonitor\TOPdesk\Resources;
 
-class Branche extends Resource
+class Branch extends Resource
 {
     /**
      * The id of the branche.

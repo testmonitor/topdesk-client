@@ -3,21 +3,21 @@
 namespace TestMonitor\TOPdesk\Transforms;
 
 use TestMonitor\TOPdesk\Validator;
-use TestMonitor\TOPdesk\Resources\Branche;
+use TestMonitor\TOPdesk\Resources\Branch;
 
 trait TransformsBranches
 {
     /**
      * @param array $incident
-     * @return \TestMonitor\TOPdesk\Resources\Branche
+     * @return \TestMonitor\TOPdesk\Resources\Branch
      */
-    protected function fromTopDeskBranche(array $branche): branche
+    protected function fromTopDeskBranche(array $branch): Branch
     {
-        Validator::keyExists($branche, 'id');
+        Validator::keyExists($branch, 'id');
 
-        return new Branche([
-            'id' => $branche['id'],
-            'name' => $branche['name'],
+        return new Branch([
+            'id' => $branch['id'],
+            'name' => $branch['name'],
         ]);
     }
 }
