@@ -13,18 +13,18 @@ trait TransformsIncidents
      */
     protected function toTopDeskIncident(Incident $incident): array
     {
-        return [
-            'caller' => [
-                'branch' => [
+        return array_filter([
+            'caller' => array_filter([
+                'branch' => array_filter([
                     'id' => $incident->branch,
-                ],
+                ]),
                 'dynamicName' => $incident->callerName,
                 'email' => $incident->callerEmail,
-            ],
+            ]),
             'briefDescription' => $incident->briefDescription,
             'externalNumber' => $incident->number,
             'request' => $incident->request,
-        ];
+        ]);
     }
 
     /**
