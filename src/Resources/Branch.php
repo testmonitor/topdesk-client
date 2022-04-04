@@ -19,7 +19,7 @@ class Branch extends Resource
     public $name;
 
     /**
-     * Incident constructor.
+     * Branch constructor.
      *
      * @param array $attributes
      */
