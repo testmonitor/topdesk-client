@@ -5,14 +5,14 @@ namespace TestMonitor\TOPdesk\Resources;
 class Branch extends Resource
 {
     /**
-     * The id of the branche.
+     * The id of the branch.
      *
      * @var string
      */
     public $id;
 
     /**
-     * The name of the branche.
+     * The name of the branch.
      *
      * @var string
      */

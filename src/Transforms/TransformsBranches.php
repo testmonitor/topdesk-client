@@ -11,7 +11,7 @@ trait TransformsBranches
      * @param array $incident
      * @return \TestMonitor\TOPdesk\Resources\Branch
      */
-    protected function fromTopDeskBranche(array $branch): Branch
+    protected function fromTopDeskBranch(array $branch): Branch
     {
         Validator::keyExists($branch, 'id');
 

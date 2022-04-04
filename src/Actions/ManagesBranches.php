@@ -21,7 +21,7 @@ trait ManagesBranches
         Validator::isArray($response);
 
         return array_map(function ($branch) {
-            return $this->fromTopDeskBranche($branch);
+            return $this->fromTopDeskBranch($branch);
         }, $response);
     }
 }
