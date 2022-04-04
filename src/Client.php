@@ -5,6 +5,7 @@ namespace TestMonitor\TOPdesk;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\ResponseInterface;
+use TestMonitor\TOPdesk\Actions\ManagesBranches;
 use TestMonitor\TOPdesk\Actions\ManagesIncidents;
 use TestMonitor\TOPdesk\Actions\ManagesAttachments;
 use TestMonitor\TOPdesk\Exceptions\NotFoundException;
@@ -15,7 +16,8 @@ use TestMonitor\TOPdesk\Exceptions\UnauthorizedException;
 class Client
 {
     use ManagesAttachments,
-        ManagesIncidents;
+        ManagesIncidents,
+        ManagesBranches;
 
     /**
      * @var string
