@@ -8,7 +8,7 @@ use TestMonitor\TOPdesk\Resources\Branch;
 trait TransformsBranches
 {
     /**
-     * @param array $incident
+     * @param array $branch
      * @return \TestMonitor\TOPdesk\Resources\Branch
      */
     protected function fromTopDeskBranch(array $branch): Branch
