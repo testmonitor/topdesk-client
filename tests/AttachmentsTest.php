@@ -46,7 +46,7 @@ class AttachmentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode($this->attachment));
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode($this->attachment)));
 
         // When
         $attachment = $topdesk->addAttachment(__DIR__ . '/files/logo.png', 1);
