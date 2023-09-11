@@ -56,7 +56,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode([$this->incident]));
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode([$this->incident])));
 
         // When
         $incidents = $topdesk->incidents();
@@ -78,7 +78,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(400);
-        $response->shouldReceive('getBody')->andReturnNull();
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor());
 
         $this->expectException(FailedActionException::class);
 
@@ -130,7 +130,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(422);
-        $response->shouldReceive('getBody')->andReturn(json_encode(['message' => 'invalid']));
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['message' => 'invalid'])));
 
         $this->expectException(ValidationException::class);
 
@@ -148,7 +148,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(422);
-        $response->shouldReceive('getBody')->andReturn(json_encode(['errors' => ['invalid']]));
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['errors' => ['invalid']])));
 
         // When
         try {
@@ -188,7 +188,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn(json_encode($this->incident));
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode($this->incident)));
 
         // When
         $incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident([
