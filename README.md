@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/testmonitor/topdesk-client/v/stable)](https://packagist.org/packages/testmonitor/topdesk-client)
 [![CircleCI](https://img.shields.io/circleci/project/github/testmonitor/topdesk-client.svg)](https://circleci.com/gh/testmonitor/topdesk-client)
-[![Travis Build](https://travis-ci.com/testmonitor/topdesk-client.svg?branch=master)](https://travis-ci.com/testmonitor/topdesk-client)
+[![Travis Build](https://travis-ci.com/testmonitor/topdesk-client.svg?branch=master)](https://app.travis-ci.com/github/topdesk-client)
 [![Code Coverage](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/?branch=master)
 [![Code Quality](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/testmonitor/topdesk-client/?branch=master)
 [![StyleCI](https://styleci.io/repos/223037352/shield)](https://styleci.io/repos/223037352)
@@ -20,7 +20,7 @@ This package provides a very basic, convenient, and unified wrapper for the TOPd
 - [Contributing](#contributing)
 - [Credits](#credits)
 - [License](#license)
-  
+
 ## Installation
 
 To install the client you need to require the package using composer:
@@ -43,7 +43,7 @@ You'll have to instantiate the client using your credentials:
 $topdesk = new \TestMonitor\TOPdesk\Client('https://mytopdesk.topdesk.net', 'username', 'password');
 ```
 
-Next, you can start interacting with TOPdesk. 
+Next, you can start interacting with TOPdesk.
 
 ## Examples
 
@@ -57,11 +57,11 @@ or create a new incident in TOPdesk:
 
 ```php
 $incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident([
-    'callerName' => 'John Doe', 
-    'callerEmail' => 'johndoe@testmonitor.com', 
-    'status' => 'firstLine', 
-    'number' => 'I1234', 
-    'briefDescription' => 'Some Request', 
+    'callerName' => 'John Doe',
+    'callerEmail' => 'johndoe@testmonitor.com',
+    'status' => 'firstLine',
+    'number' => 'I1234',
+    'briefDescription' => 'Some Request',
     'request' => 'Some Request Description'
 ]));
 ```
@@ -71,7 +71,7 @@ $incident = $topdesk->createIncident(new \TestMonitor\TOPdesk\Resources\Incident
 The package contains integration tests. You can run them using PHPUnit.
 
     $ vendor/bin/phpunit
-    
+
 ## Changelog
 
 Refer to [CHANGELOG](CHANGELOG.md) for more information.
