@@ -21,7 +21,7 @@ trait ManagesAttachments
         $response = $this->post(
             "tas/api/incidents/id/{$topDeskId}/attachments",
             [
-                'query' => ['description' =>  basename($path)],
+                'query' => ['description' => basename($path)],
                 'multipart' => [
                     [
                         'name' => 'file',
