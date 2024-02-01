@@ -22,7 +22,7 @@ class FIQLTest extends TestCase
     }
 
     /** @test */
-    public function it_should_generate_a_wiql_query()
+    public function it_should_generate_a_fiql_query()
     {
         // Given
 
