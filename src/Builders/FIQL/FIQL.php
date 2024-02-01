@@ -87,7 +87,7 @@ class FIQL
     }
 
     /**
-     * Generates conditions based on the available "wheres".
+     * Parse conditions into a FIQL string.
      *
      * @return string
      */
