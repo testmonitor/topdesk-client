@@ -47,6 +47,97 @@ class IncidentsTest extends TestCase
     }
 
     /** @test */
+    public function it_should_return_an_incident()
+    {
+        // Given
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(200);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode($this->incident)));
+
+        // When
+        $incident = $topdesk->incident($this->incident['id']);
+
+        // Then
+        $this->assertInstanceOf(Incident::class, $incident);
+        $this->assertEquals($this->incident['briefDescription'], $incident->briefDescription);
+        $this->assertIsArray($incident->toArray());
+    }
+
+    /** @test */
+    public function it_should_throw_an_failed_action_exception_when_client_receives_bad_request_while_getting_an_incident()
+    {
+        // Given
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(400);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor());
+
+        $this->expectException(FailedActionException::class);
+
+        // When
+        $topdesk->incident($this->incident['id']);
+    }
+
+    /** @test */
+    public function it_should_throw_a_unauthorized_exception_when_client_lacks_authorization_for_getting_an_incident()
+    {
+        // Given
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(401);
+
+        $this->expectException(UnauthorizedException::class);
+
+        // When
+        $topdesk->incident($this->incident['id']);
+    }
+
+    /** @test */
+    public function it_should_throw_a_notfound_exception_when_client_receives_not_found_while_getting_an_incident()
+    {
+        // Given
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(404);
+
+        $this->expectException(NotFoundException::class);
+
+        // When
+        $topdesk->incident($this->incident['id']);
+    }
+
+    /** @test */
+    public function it_should_throw_a_validation_exception_when_client_provides_invalid_data_while_a_getting_an_incident()
+    {
+        // Given
+        $topdesk = new Client('url', 'user', 'pass');
+
+        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(422);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['message' => 'invalid'])));
+
+        $this->expectException(ValidationException::class);
+
+        // When
+        $topdesk->incident($this->incident['id']);
+    }
+
+    /** @test */
     public function it_should_return_a_list_of_incidents()
     {
         // Given
@@ -136,28 +227,6 @@ class IncidentsTest extends TestCase
 
         // When
         $topdesk->incidents();
-    }
-
-    /** @test */
-    public function it_should_return_an_error_message_when_client_provides_invalid_data_while_a_getting_list_of_projects()
-    {
-        // Given
-        $topdesk = new Client('url', 'user', 'pass');
-
-        $topdesk->setClient($service = Mockery::mock('GuzzleHttp\Client'));
-
-        $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
-        $response->shouldReceive('getStatusCode')->andReturn(422);
-        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['errors' => ['invalid']])));
-
-        // When
-        try {
-            $topdesk->incidents();
-        } catch (ValidationException $exception) {
-            // Then
-            $this->assertIsArray($exception->errors());
-            $this->assertEquals('invalid', $exception->errors()['errors'][0]);
-        }
     }
 
     /** @test */

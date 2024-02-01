@@ -33,6 +33,13 @@ class Incident extends Resource
     public $number;
 
     /**
+     * The external number of the incident.
+     *
+     * @var string
+     */
+    public $externalNumber;
+
+    /**
      * The request of the incident.
      *
      * @var string
@@ -67,6 +74,7 @@ class Incident extends Resource
         $this->branch = $attributes['branch'] ?? null;
         $this->status = $attributes['status'] ?? 'firstLine';
         $this->number = $attributes['number'];
+        $this->externalNumber = $attributes['externalNumber'] ?? '';
         $this->request = $attributes['request'];
         $this->briefDescription = $attributes['briefDescription'];
         $this->callerEmail = $attributes['callerEmail'];
