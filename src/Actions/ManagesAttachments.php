@@ -14,7 +14,7 @@ trait ManagesAttachments
      *
      * @param string $path
      * @param string $topDeskId
-     * @return Attachment
+     * @return \TestMonitor\TOPdesk\Resources\Attachment
      */
     public function addAttachment(string $path, $topDeskId): Attachment
     {

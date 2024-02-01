@@ -59,7 +59,7 @@ class Client
     protected function client()
     {
         return $this->client ?? new \GuzzleHttp\Client([
-            'base_uri' => $this->instance . '/',
+            'base_uri' => $this->instance,
             'auth' => [$this->username, $this->password],
             'http_errors' => false,
             'allow_redirects' => false,
@@ -82,6 +82,7 @@ class Client
      * Make a GET request to TopDesk servers and return the response.
      *
      * @param string $uri
+     * @param array $payload
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
@@ -90,9 +91,9 @@ class Client
      *
      * @return mixed
      */
-    protected function get($uri)
+    protected function get($uri, array $payload = [])
     {
-        return $this->request('GET', $uri);
+        return $this->request('GET', $uri, $payload);
     }
 
     /**
