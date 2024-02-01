@@ -29,7 +29,6 @@ trait ManagesIncidents
      * @param \TestMonitor\TOPdesk\Builders\FIQL\FIQL|null $query
      * @param int $start
      * @param int $limit
-     *
      * @return \TestMonitor\TOPdesk\Resources\Incident[]
      */
     public function incidents(?FIQL $query = null, int $start = 0, int $limit = 10)

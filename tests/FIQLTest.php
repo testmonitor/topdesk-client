@@ -3,8 +3,8 @@
 namespace TestMonitor\TOPdesk\Tests;
 
 use PHPUnit\Framework\TestCase;
-use TestMonitor\TOPdesk\Builders\FIQL\Field;
 use TestMonitor\TOPdesk\Builders\FIQL\FIQL;
+use TestMonitor\TOPdesk\Builders\FIQL\Field;
 use TestMonitor\TOPdesk\Builders\FIQL\Operator;
 
 class FIQLTest extends TestCase

@@ -2,7 +2,6 @@
 
 namespace TestMonitor\TOPdesk\Actions;
 
-use TestMonitor\TOPdesk\Validator;
 use TestMonitor\TOPdesk\Transforms\TransformsBranches;
 
 trait ManagesBranches
