@@ -95,6 +95,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(401);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['message' => 'unauthorized'])));
 
         $this->expectException(UnauthorizedException::class);
 
@@ -187,6 +188,7 @@ class IncidentsTest extends TestCase
 
         $service->shouldReceive('request')->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
         $response->shouldReceive('getStatusCode')->andReturn(401);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['message' => 'unauthorized'])));
 
         $this->expectException(UnauthorizedException::class);
 
