@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 - Added message to UnauthorizedException
+- Manages incidents
+- Added external number to incident resource
 
 ### Removed
 - PHP 8.0 support
