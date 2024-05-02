@@ -152,6 +152,7 @@ class Client
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
      * @throws \TestMonitor\TOPdesk\Exceptions\UnauthorizedException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
+     * @throws \Exception
      */
     protected function handleRequestError(ResponseInterface $response)
     {
