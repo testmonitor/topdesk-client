@@ -150,6 +150,7 @@ class Client
      *
      * @throws \TestMonitor\TOPdesk\Exceptions\ValidationException
      * @throws \TestMonitor\TOPdesk\Exceptions\NotFoundException
+     * @throws \TestMonitor\TOPdesk\Exceptions\UnauthorizedException
      * @throws \TestMonitor\TOPdesk\Exceptions\FailedActionException
      * @throws \Exception
      */
@@ -160,15 +161,15 @@ class Client
         }
 
         if ($response->getStatusCode() == 404 || $response->getStatusCode() == 302) {
-            throw new NotFoundException();
+            throw new NotFoundException((string) $response->getBody(), $response->getStatusCode());
         }
 
         if ($response->getStatusCode() == 401 || $response->getStatusCode() == 403) {
-            throw new UnauthorizedException((string) $response->getBody());
+            throw new UnauthorizedException((string) $response->getBody(), $response->getStatusCode());
         }
 
         if ($response->getStatusCode() == 400) {
-            throw new FailedActionException((string) $response->getBody());
+            throw new FailedActionException((string) $response->getBody(), $response->getStatusCode());
         }
 
         throw new Exception((string) $response->getStatusCode());
