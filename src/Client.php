@@ -35,6 +35,11 @@ class Client
     protected $password;
 
     /**
+     * @var string
+     */
+    protected $partnerId;
+
+    /**
      * @var \GuzzleHttp\Client
      */
     protected $client;
@@ -45,12 +50,14 @@ class Client
      * @param string $instance
      * @param string $username
      * @param string $password
+     * @param string $partnerId
      */
-    public function __construct($instance, $username, $password)
+    public function __construct($instance, $username, $password, $partnerId = '')
     {
         $this->instance = $instance;
         $this->username = $username;
         $this->password = $password;
+        $this->partnerId = $partnerId;
     }
 
     /**
@@ -66,6 +73,7 @@ class Client
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
+                'Partner-Solution-ID' => $this->partnerId,
             ],
         ]);
     }
