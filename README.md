@@ -1,9 +1,9 @@
 # TestMonitor TOPdesk Client
 
 [![Latest Stable Version](https://poser.pugx.org/testmonitor/topdesk-client/v/stable)](https://packagist.org/packages/testmonitor/topdesk-client)
-[![codecov](https://codecov.io/gh/testmonitor/topdesk-client/graph/badge.svg?token=8KKHUCJK5W)](https://codecov.io/gh/testmonitor/topdesk-client)
 [![CircleCI](https://img.shields.io/circleci/project/github/testmonitor/topdesk-client.svg)](https://circleci.com/gh/testmonitor/topdesk-client)
 [![StyleCI](https://styleci.io/repos/223037352/shield)](https://styleci.io/repos/223037352)
+[![codecov](https://codecov.io/gh/testmonitor/topdesk-client/graph/badge.svg?token=8KKHUCJK5W)](https://codecov.io/gh/testmonitor/topdesk-client)
 [![License](https://poser.pugx.org/testmonitor/topdesk-client/license)](https://packagist.org/packages/testmonitor/topdesk-client)
 
 This package provides a very basic, convenient, and unified wrapper for the TOPdesk REST API.
